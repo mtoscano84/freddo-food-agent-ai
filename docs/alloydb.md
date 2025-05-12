@@ -208,53 +208,67 @@ user=postgres
 password=MySecure123welcome123!
 ```
 
-2. Create a GCS Bucket
+5. Got to freddo-food-agent-ai/src/backend and edit the load_data.py to your project_id and region
 ```
-gcloud storage buckets create gs://$BUCKET_NAME --project=$PROJECT_ID --location=$REGION
-```
-
-3. Change into the Catalog Image Repository
-```
-cd genai-fashionmatch/data/catalog_images
+client = genai.Client(vertexai=True, project="freddo-food-agent-ai", location="us-central1")
 ```
 
-4. Upload the catalog images from local to the GCS Bucket
+6. Load the data to AlloyDB
 ```
-gcloud storage cp * gs://$BUCKET_NAME --project=$PROJECT_ID
-```
-
-5. Make a copy of example-config.ini and name it config.ini
-```
-cd genai-fashionmatch/fashionmatch-service/setup
-cp example-config.ini config.ini
-```
-
-6. Update config.ini with your own project, repo names and database information. Keep using 127.0.0.1 as the datastore host IP address for port forwarding.
-```
-;This module defines data access variables
-[CORE]
-PROJECT = genai-fashionmatch
-LOCATION = us-central1
-LANDING_REPO = landing-image-repo-863363744101
-CATALOG_REPO = catalog-repo-863363744101
-
-[CONNECTION]
-host = 127.0.0.1
-port = 5432
-database = fashionstore
-user = postgres
-password = "my-alloydb-pass"
-```
-
-7. Install requirements and populate data into database:
-```
+cd freddo-food-agent-ai/src/backend
 source load_db.sh
 ```
+Note: Validate that AlloyDB Auth Proxy is running in a separate window
 
-8. Upload the architecture to GCS:
+Output:
 ```
-cd genai-fashionmatch/images
-gcloud storage cp fashion_item_recommendation_app.png gs://$BUCKET_NAME --project=$PROJECT_ID
+Database schema created successfully
+Constraints created successfully
+PostgreSQL connection closed
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 187/187 [00:49<00:00,  3.78it/s]
+Embeddings generated and saved to ../../data/recipes_with_embeddings.csv
+Data loaded successfully from users.csv into users table
+Data loaded successfully from stores.csv into stores table
+Data loaded successfully from products.csv into products table
+Data loaded successfully from recipes_with_embeddings.csv into recipes table
+Data loaded successfully from shopping_lists.csv into shopping_lists table
+Data loaded successfully from policies.csv into policies table
+PostgreSQL connection closed
+Location columns added and populated successfully
+PostgreSQL connection closed
+Successfully updated picture URLs for all recipes
+PostgreSQL connection closed
+```
+
+7- Connect to the AlloyDB Instance to validate the data
+```
+psql -h 127.0.0.1 -U postgres -d recipe_store
+select count(*) from recipes;
+ count 
+-------
+   187
+```
+
+## Load Recipes Images on GCS
+
+We will use a GCS Bucket to serve the recipes images. All the images has been created using Gemini model "imagen-3.0-generate-002"
+
+1. Create a GCS Bucket to store the images and serve them from there
+```
+gsutil mb gs://freddo-food-agent-ai-bck01
+```
+
+2. Upload the images into the bucket. From the root directory:
+```
+gsutil -m cp -r images/* gs://freddo-food-agent-ai-bck01/images/
+```
+
+3. To enable Public Access to the GCS Bucket, you need to update the Domain Restricted Shared Organization Policy to "Allow All" 
+
+4. Grant Public Access to the GCS Bucket. In production, we recommend to use singed URLs
+```
+gsutil iam ch allUsers:objectViewer gs://freddo-food-agent-ai-bck01
+gsutil iam get gs://freddo-food-agent-ai-bck01
 ```
 
 ## Clean up resources
@@ -268,12 +282,7 @@ export REGION=us-central1
 export RANGE_NAME=my-allocated-range-default
 ```
 
-2. Delete Compute Engine VM:
-```
-gcloud compute instances delete $VM_INSTANCE
-```
-
-3. Delete AlloyDB cluster that contains instances:
+2. Delete AlloyDB cluster that contains instances:
 ```
 gcloud alloydb clusters delete $CLUSTER \
     --force \
@@ -281,7 +290,7 @@ gcloud alloydb clusters delete $CLUSTER \
     --project=$PROJECT_ID
 ```
 
-4. Delete an allocated IP address range:
+3. Delete an allocated IP address range:
 ```
 gcloud compute addresses delete $RANGE_NAME \
     --global
