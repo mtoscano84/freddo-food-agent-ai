@@ -1,0 +1,11 @@
+policy_id,store_id,Policy_name, Delivery_time, Fee
+1,1,Standard Delivery,"24-48 hours", "free for orders over €30"
+2,1,Express Delivery,"Same-day delivery for orders placed before 2PM", "€5.99"
+3,2,Standard Delivery,"24-48 hours", "free for orders over €25"
+4,2,Express Delivery,"Same-day delivery for orders placed before 3PM", "€4.99"
+5,3,Standard Delivery,"24-48 hours", "free for orders over €35"
+6,3,Premium Delivery,"2-hours", "€25"
+7,4,Standard Delivery,"24-48 hours", "free for orders over €40"
+8,4,Express Delivery,"Same-day delivery for orders placed before 1PM", "€6.99"
+9,5,Standard Delivery,"24-48 hours", "free for orders over €30"
+10,5,Express Delivery,"Same-day delivery for orders placed before 2PM", "€5.99"

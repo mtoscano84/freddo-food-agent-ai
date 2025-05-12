@@ -1,0 +1,271 @@
+sources:
+  my-pg-source:
+    kind: postgres
+    host: 10.41.0.5
+    port: 5432
+    database: recipe_store
+    user: postgres
+    password: welcome1
+tools:
+  search-recipes:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Search for recipes based on an a user description of the recipe they're looking for. Return the name, description, ingredients and difficulty of the recipe.
+    parameters:
+      - name: description
+        type: string
+        description: User description of the recipe they're looking for.
+    statement: |
+      SELECT 
+          name, 
+          description, 
+          ingredients, 
+          difficulty,
+          1 - (desc_emb <=> embedding('text-embedding-005',$1)::vector) as similarity_score
+      FROM 
+          recipes 
+      ORDER BY 
+          similarity_score DESC
+      LIMIT 5;
+  search-recipes-by-ingredient:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Search for recipes based on ingredients provided by the user. Return the name, description, ingredients and difficulty of the recipe.
+    parameters:
+      - name: ingredients
+        type: string
+        description: Ingredient provided by the user.
+    statement: |
+      SELECT 
+          name, 
+          description, 
+          ingredients, 
+          difficulty
+      FROM 
+          recipes 
+      WHERE 
+          ingredients LIKE '%' || $1 || '%';
+  search-ingredients-by-recipes:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Search for ingredients based on recipes names provided by the user. Return the name of the recipe and then the ingredients for each recipe using bullet points.
+    parameters:
+      - name: recipes
+        type: string
+        description: Recipes names provided by the user.
+    statement: |
+      SELECT 
+          name,
+          ingredients
+      FROM 
+          recipes 
+      WHERE 
+          name LIKE '%' || $1 || '%';
+  add-recipe-ingredient-to-shopping-list:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Add the ingredients from a recipe name provided by the user to the shopping list using a new list_id for the user_id
+    parameters:
+      - name: name
+        type: string
+        description: The name of the recipe
+      - name: user_id
+        type: integer
+        description: The user id.
+    statement: |
+      WITH new_list AS (
+        SELECT COALESCE(MAX(list_id), 0) + 1 as next_list_id 
+        FROM shopping_lists
+      )
+      INSERT INTO shopping_lists (list_id, user_id, items, status)
+      SELECT
+        (SELECT next_list_id FROM new_list),  -- Same list_id for all rows
+        $2,                                   -- The user_id (parameter)
+        TRIM(ingredient_item),                -- Each ingredient, TRIMMED of leading/trailing whitespace
+        'pending'
+      FROM
+        recipes r,
+        regexp_split_to_table(r.ingredients, E',') AS ingredient_item
+      WHERE
+        r.name = $1;
+  add-ingredient-to-shopping-list:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Add an ingredient to the shopping list for the user_id. Return the shopping list for the user_id.
+    parameters:
+      - name: name
+        type: string
+        description: The name of the ingredient
+      - name: user_id
+        type: integer
+        description: The user id.
+    statement: |
+      WITH new_list AS (
+        SELECT COALESCE(MAX(list_id), 0) + 1 as next_list_id 
+        FROM shopping_lists
+      )
+      INSERT INTO shopping_lists (list_id, user_id, items, status)
+      VALUES ((SELECT next_list_id FROM new_list), $2, $1, 'pending');
+  list-shopping-list-by-user:
+    kind: postgres-sql
+    source: my-pg-source
+    description: List the shopping list of an user.
+    parameters:
+      - name: user_id
+        type: integer
+        description: The user id.
+    statement: |
+      SELECT 
+        'Shopping List:\n\n' || 
+        STRING_AGG(items, '\n') as formatted_list
+      FROM shopping_lists 
+      WHERE user_id = $1 AND status = 'pending';
+  search-store-by-user:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Search store by user. First get user location, then find nearby stores.
+    parameters:
+      - name: user_id
+        type: integer
+        description: The user id.
+    statement: |
+      WITH user_info AS (
+        SELECT 
+          'USER|' || address || '|0,' || 
+          ST_X(location::geometry)::numeric(10,6) || ',' || 
+          ST_Y(location::geometry)::numeric(10,6) as location_info,
+          location as user_location
+        FROM users 
+        WHERE user_id = $1
+      ),
+      store_info AS (
+        SELECT 
+          s.name || '|' || 
+          ST_Distance(s.location, u.user_location)::integer || ',' || 
+          ST_X(s.location::geometry)::numeric(10,6) || ',' || 
+          ST_Y(s.location::geometry)::numeric(10,6) as location_info
+        FROM stores s, user_info u
+        ORDER BY s.location <-> u.user_location
+        LIMIT 3
+      )
+      SELECT string_agg(location_info, E'\n')
+      FROM (
+        SELECT location_info FROM user_info
+        UNION ALL
+        SELECT location_info FROM store_info
+      ) all_locations;
+  place-order-by-user:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Place an order using the shopping list by user using the store as input.
+    parameters:
+      - name: user_id
+        type: integer
+        description: The user id.
+      - name: store_id
+        type: integer
+        description: The store id.
+    statement: |
+      WITH new_order AS (
+        INSERT INTO orders (
+            user_id,
+            store_id,
+            total,
+            shipping_address,
+            Status,
+            "Delivery method"
+        )
+        SELECT
+            $1,                                    -- user_id
+            $2,                                    -- store_id
+            (random() * 100 + 20)::DECIMAL(10, 2), -- Random total between $20 and $120
+            u.address,
+            'pending',
+            'standard'
+        FROM users u
+        WHERE u.user_id = $1
+        RETURNING order_id, total, shipping_address, "Delivery method", Status
+      )
+      SELECT 
+        'ORDER|' ||
+        order_id || '|' ||
+        (SELECT name FROM stores WHERE store_id = $2) || '|' ||
+        total::text || '|' ||
+        shipping_address || '|' ||
+        "Delivery method" || '|' ||
+        Status as order_info
+      FROM new_order;
+  show-order-status-by-user:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Show orders by user. Return the order_id, total, status and delivery method.
+    parameters:
+      - name: user_id
+        type: integer
+        description: The user id.
+    statement: |
+      SELECT 
+        'ORDER|' ||
+        o.order_id || '|' ||
+        s.name || '|' ||
+        o.total::text || '|' ||
+        o.shipping_address || '|' ||
+        o."Delivery method" || '|' ||
+        o.Status as order_info
+      FROM orders o
+      JOIN stores s ON o.store_id = s.store_id
+      WHERE o.user_id = $1
+      ORDER BY o.order_id DESC;
+  update-order-delivery-method:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Update the delivery method of an order and set the status to 'in preparation'.
+    parameters:
+      - name: order_id
+        type: integer
+        description: The order id.
+      - name: delivery_method
+        type: string
+        description: The delivery method.
+    statement: update orders set "Delivery method" = $2, status = 'in preparation' where order_id = $1;
+  cancel-order-by-user:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Cancel an order by user.
+    parameters:
+      - name: order_id
+        type: integer
+        description: The order id.
+      - name: user_id
+        type: integer
+        description: The user id.
+    statement: update orders set status = 'cancelled' where order_id = $1 and user_id = $2;
+  get-user-id-by-name:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Get the user ID from their name
+    parameters:
+      - name: name
+        type: string
+        description: The user's first name
+    statement: |
+      SELECT user_id 
+      FROM users 
+      WHERE LOWER(first_name) = LOWER($1);
+  show-delivery-methods-policy-by-store:
+    kind: postgres-sql
+    source: my-pg-source
+    description: Show delivery method policies by store. Return the policy name, description and store_id.
+    parameters:
+      - name: store_id
+        type: integer
+        description: The store id.
+    statement: |
+      SELECT
+        s.name as store_name,
+        p.Policy_name as delivery_method,
+        p.Delivery_time as delivery_time,
+        p.Fee as fee
+      FROM policies p
+      JOIN stores s ON p.store_id = s.store_id
+      WHERE p.store_id = $1;

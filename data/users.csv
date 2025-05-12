@@ -1,0 +1,6 @@
+user_id,first_name,last_name,Address, city, Allergies
+1,Alicia,Dubo,"Carrer del Rec 71", "Barcelona", ""
+2,Bob,Martin,"Carrer de la Font 12", "Barcelona", "Peanuts"
+3,Joan,Casado,"Carrer de la Mare 10", "Barcelona", "Dairy"
+4,Clara,Ruiz,"Carrer de relotge 1", "Barcelona", ""
+5,Miguel,Toscano,"Carrer Muntaner 39","Barcelona","Gluten"

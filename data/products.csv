@@ -1,0 +1,342 @@
+product_id,store_id,name,category,stock,unit_price
+1,1,"Spaghetti","Pasta",150,1.50
+2,1,"Pancetta","Meat",50,4.20
+3,1,"Eggs","Dairy & Eggs",200,2.80
+4,1,"Pecorino Romano Cheese","Cheese",30,6.50
+5,1,"Tomatoes","Produce",100,2.00
+6,1,"Fresh Basil","Produce",40,1.80
+7,1,"Garlic","Produce",60,0.90
+8,1,"Olive Oil","Oils & Fats",80,7.99
+9,2,"Carrots","Produce",120,0.75
+10,2,"Potatoes","Produce",180,1.20
+11,2,"Cauliflower","Produce",70,2.50
+12,2,"Peas (Frozen)","Frozen",90,1.90
+13,2,"Coconut Milk","Pantry",60,3.10
+14,2,"Curry Powder","Spices",100,2.75
+15,2,"Onion","Produce",150,0.60
+16,2,"Ginger","Produce",45,1.50
+17,2,"Rice (Basmati)","Grains",110,3.50
+18,3,"Flour","Baking",200,2.10
+19,3,"Sugar","Baking",180,1.80
+20,3,"Cocoa Powder","Baking",75,3.00
+21,3,"Milk","Dairy & Eggs",150,1.10
+22,3,"Vegetable Oil","Oils & Fats",90,4.50
+23,3,"Baking Powder","Baking",60,1.20
+24,3,"Vanilla Extract","Baking",40,3.80
+25,3,"Chocolate Frosting","Baking",55,2.90
+26,4,"Chicken Pieces","Meat",80,5.50
+27,4,"Yogurt (Plain)","Dairy & Eggs",120,2.00
+28,4,"Tikka Masala Spice Mix","Spices",95,4.00
+29,4,"Tomato Paste","Pantry",70,1.50
+30,4,"Cream (Heavy)","Dairy & Eggs",60,3.20
+31,5,"Apples","Produce",250,1.00
+32,5,"Butter","Dairy & Eggs",100,3.50
+33,5,"Cinnamon","Spices",85,2.20
+34,1,"Arborio Rice","Grains",40,4.00
+35,1,"Mushrooms","Produce",65,3.00
+36,1,"Vegetable Broth","Pantry",70,2.50
+37,1,"White Wine","Beverages",35,8.00
+38,1,"Parmesan Cheese","Cheese",25,7.00
+39,2,"Beef Strips","Meat",40,7.50
+40,2,"Broccoli","Produce",80,2.20
+41,2,"Bell Peppers (Mixed)","Produce",90,2.80
+42,2,"Soy Sauce","Pantry",55,3.00
+43,2,"Sesame Oil","Oils & Fats",30,6.00
+44,3,"Shortcrust Pastry","Frozen",45,3.50
+45,3,"Lemon Juice","Produce",50,2.00
+46,3,"Lemon Zest","Produce",0,0.50
+47,4,"Lentils","Pantry",110,1.80
+48,4,"Celery","Produce",75,1.10
+49,4,"Thyme (Dried)","Spices",30,2.50
+50,4,"Bay Leaf","Spices",40,1.00
+51,5,"Ladyfingers","Baking",60,4.00
+52,5,"Coffee","Pantry",90,5.50
+53,5,"Mascarpone Cheese","Cheese",35,8.50
+54,5,"Cocoa Powder (for dusting)","Baking",40,3.20
+55,1,"Rice Noodles","Pantry",70,2.80
+56,1,"Tofu","Produce",55,3.50
+57,1,"Bean Sprouts","Produce",40,1.50
+58,1,"Peanuts","Pantry",60,2.00
+59,1,"Tamarind Paste","Pantry",30,4.50
+60,2,"Fish Sauce","Pantry",45,3.20
+61,2,"Lime","Produce",70,0.80
+62,3,"Graham Crackers","Baking",50,3.00
+63,3,"Sweetened Condensed Milk","Dairy & Eggs",40,2.50
+64,3,"Key Limes","Produce",35,1.20
+65,4,"Sushi Rice","Grains",50,4.50
+66,4,"Nori Sheets","Pantry",45,5.00
+67,4,"Salmon Fillet","Seafood",25,9.00
+68,4,"Tuna (Canned)","Canned Goods",60,2.00
+69,4,"Avocado","Produce",55,2.50
+70,5,"Black Beans (Canned)","Canned Goods",70,1.30
+71,5,"Cumin","Spices",40,2.80
+72,5,"Chili Powder","Spices",35,2.50
+73,5,"Cilantro","Produce",30,1.60
+74,1,"Dried Apricots","Pantry",20,5.00
+75,1,"Prunes","Pantry",25,4.50
+76,2,"Dried Apricots","Pantry",25,5.50
+77,3,"Dried Apricots","Pantry",30,4.75
+78,1,"Quinoa","Grains",45,6.00
+79,2,"Quinoa","Grains",50,5.50
+80,3,"Quinoa","Grains",40,5.75
+81,4,"Greek Yogurt","Dairy & Eggs",80,3.50
+82,5,"Greek Yogurt","Dairy & Eggs",75,3.75
+83,1,"Olive Oil","Oils & Fats",40,8.00
+84,2,"Olive Oil","Oils & Fats",35,7.50
+85,3,"Olive Oil","Oils & Fats",45,8.50
+86,1,"Ground Coffee","Pantry",30,12.00
+87,2,"Ground Coffee","Pantry",25,11.50
+88,4,"Ground Coffee","Pantry",35,10.75
+89,1,"Almonds","Nuts",50,7.00
+90,3,"Almonds","Nuts",45,7.50
+91,1,"Honey","Pantry",30,6.00
+92,5,"Honey","Pantry",35,5.50
+93,2,"Chia Seeds","Pantry",40,5.00
+94,4,"Chia Seeds","Pantry",45,4.75
+95,1,"Coconut Milk","Pantry",55,3.00
+96,3,"Coconut Milk","Pantry",50,3.25
+97,5,"Coconut Milk","Pantry",60,2.75
+98,2,"Sweet Potatoes","Produce",70,2.00
+99,4,"Sweet Potatoes","Produce",65,2.25
+100,1,"Maple Syrup","Pantry",25,9.00
+101,3,"Maple Syrup","Pantry",30,8.50
+102,2,"Almond Milk","Dairy & Eggs",45,3.75
+103,4,"Almond Milk","Dairy & Eggs",50,3.50
+104,5,"Almond Milk","Dairy & Eggs",40,4.00
+105,1,"Dark Chocolate","Pantry",35,4.50
+106,3,"Dark Chocolate","Pantry",30,4.75
+107,2,"Cashews","Nuts",40,8.00
+108,4,"Cashews","Nuts",45,7.50
+109,1,"Dates","Produce",30,6.00
+110,5,"Dates","Produce",35,5.50
+111,2,"Nutritional Yeast","Pantry",25,5.00
+112,3,"Nutritional Yeast","Pantry",30,4.75
+113,1,"Tempeh","Produce",40,4.00
+114,4,"Tempeh","Produce",35,4.25
+115,2,"Hemp Seeds","Pantry",30,6.50
+116,5,"Hemp Seeds","Pantry",35,6.00
+117,1,"Kombucha","Beverages",45,4.50
+118,3,"Kombucha","Beverages",40,4.75
+119,2,"Seaweed Snacks","Pantry",50,2.00
+120,4,"Seaweed Snacks","Pantry",45,2.25
+121,1,"Goji Berries","Pantry",30,7.00
+122,5,"Goji Berries","Pantry",35,6.50
+123,2,"Coconut Water","Beverages",40,3.00
+124,3,"Coconut Water","Beverages",45,2.75
+125,1,"Matcha Powder","Pantry",25,12.00
+126,4,"Matcha Powder","Pantry",30,11.50
+127,2,"Rice Paper","Pantry",55,2.50
+128,5,"Rice Paper","Pantry",50,2.75
+129,1,"Miso Paste","Pantry",35,5.00
+130,3,"Miso Paste","Pantry",30,5.25
+131,2,"Spirulina","Pantry",25,8.00
+132,4,"Spirulina","Pantry",30,7.50
+133,1,"Kimchi","Produce",40,6.00
+134,5,"Kimchi","Produce",45,5.50
+135,2,"Tahini","Pantry",35,5.00
+136,3,"Tahini","Pantry",30,5.25
+137,1,"Acai Powder","Pantry",25,9.00
+138,4,"Acai Powder","Pantry",30,8.50
+139,2,"Coconut Flour","Baking",45,4.00
+140,5,"Coconut Flour","Baking",40,4.25
+141,1,"Cacao Nibs","Pantry",35,6.00
+142,3,"Cacao Nibs","Pantry",30,6.25
+143,2,"Flax Seeds","Pantry",50,3.00
+144,4,"Flax Seeds","Pantry",45,3.25
+145,1,"Rice Vinegar","Pantry",40,2.50
+146,5,"Rice Vinegar","Pantry",45,2.25
+147,2,"Wakame","Pantry",30,4.00
+148,3,"Wakame","Pantry",35,3.75
+149,1,"Umeboshi","Pantry",25,7.00
+150,4,"Umeboshi","Pantry",30,6.50
+151,1,"Mussels","Seafood",40,8.50
+152,1,"French Fries","Frozen",60,3.75
+153,1,"White Wine","Beverages",25,12.00
+154,1,"Celery","Produce",45,2.25
+155,1,"Onions","Produce",80,1.50
+156,1,"Parsley","Produce",30,1.75
+157,1,"Butter","Dairy & Eggs",50,4.25
+158,1,"Chicken Breast","Meat & Poultry",45,8.50
+159,2,"Chicken Thighs","Meat & Poultry",40,7.25
+160,4,"Fresh Cod","Seafood",30,12.00
+161,5,"Salmon Fillet","Seafood",25,14.50
+162,1,"Carrots","Produce",75,1.75
+163,3,"Parsnips","Produce",40,2.25
+164,2,"Turnips","Produce",35,1.95
+165,4,"Heavy Cream","Dairy & Eggs",50,4.50
+166,5,"Whipping Cream","Dairy & Eggs",45,4.25
+167,1,"Egg Yolks","Dairy & Eggs",60,3.75
+168,2,"Free Range Egg Yolks","Dairy & Eggs",50,4.25
+169,3,"Fresh Thyme","Produce",35,1.95
+170,4,"Fresh Rosemary","Produce",30,2.25
+171,5,"Fresh Dill","Produce",25,1.75
+172,1,"Fresh Sage","Produce",30,2.00
+173,2,"Fresh Tarragon","Produce",25,2.15
+174,1,"All-Purpose Flour","Baking",100,3.50
+175,3,"All-Purpose Flour","Baking",85,3.75
+176,4,"All-Purpose Flour","Baking",90,3.25
+177,1,"Active Dry Yeast","Baking",45,4.50
+178,2,"Active Dry Yeast","Baking",40,4.75
+179,1,"Pearl Sugar","Baking",35,5.25
+180,5,"Pearl Sugar","Baking",30,5.50
+181,1,"Large Eggs","Dairy & Eggs",120,4.25
+182,2,"Large Eggs","Dairy & Eggs",100,4.50
+183,4,"Large Eggs","Dairy & Eggs",110,4.00
+184,1,"Unsalted Butter","Dairy & Eggs",75,4.75
+185,3,"Unsalted Butter","Dairy & Eggs",65,5.00
+186,5,"Unsalted Butter","Dairy & Eggs",70,4.50
+187,1,"Whole Milk","Dairy & Eggs",90,3.25
+188,2,"Whole Milk","Dairy & Eggs",85,3.50
+189,4,"Whole Milk","Dairy & Eggs",95,3.00
+190,1,"Potatoes","Produce",120,2.25
+191,3,"Potatoes","Produce",100,2.50
+192,4,"Potatoes","Produce",110,2.00
+193,1,"Leeks","Produce",45,2.75
+194,2,"Leeks","Produce",40,2.95
+195,3,"Brussels Sprouts","Produce",50,3.25
+196,4,"Brussels Sprouts","Produce",45,3.50
+197,5,"Carrots","Produce",80,1.50
+198,2,"Carrots","Produce",85,1.75
+199,4,"Butter","Dairy & Eggs",60,4.50
+200,3,"Butter","Dairy & Eggs",55,4.75
+201,2,"Milk","Dairy & Eggs",100,3.15
+202,3,"Milk","Dairy & Eggs",95,3.25
+203,5,"Milk","Dairy & Eggs",90,3.00
+204,1,"Ground Nutmeg","Spices",40,3.75
+205,4,"Ground Nutmeg","Spices",35,4.00
+206,5,"Ground Nutmeg","Spices",30,3.95
+207,1,"Beef Tallow","Oils & Fats",40,5.25
+208,2,"Beef Tallow","Oils & Fats",35,5.50
+209,4,"Beef Tallow","Oils & Fats",30,5.75
+210,1,"Salt","Spices",150,1.25
+211,2,"Salt","Spices",140,1.50
+212,3,"Salt","Spices",145,1.25
+213,4,"Salt","Spices",155,1.00
+214,5,"Salt","Spices",160,1.25
+215,1,"Ground Pork","Meat",75,5.50
+216,2,"Ground Pork","Meat",70,5.75
+217,3,"Ground Beef","Meat",80,6.25
+218,4,"Ground Beef","Meat",75,6.50
+219,1,"Bread Crumbs","Baking",60,2.75
+220,3,"Bread Crumbs","Baking",55,3.00
+221,2,"Yellow Onions","Produce",100,1.75
+222,4,"Yellow Onions","Produce",95,1.50
+223,5,"Yellow Onions","Produce",90,1.65
+224,1,"Sirop de Liège","Condiments",40,6.75
+225,2,"Sirop de Liège","Condiments",35,7.00
+226,1,"Beef Sirloin","Meat",50,12.50
+227,2,"Beef Sirloin","Meat",45,12.75
+228,1,"Belgian Dark Beer","Beverages",60,4.50
+229,2,"Belgian Dark Beer","Beverages",55,4.75
+230,3,"Belgian Dark Beer","Beverages",50,4.25
+231,1,"Sourdough Bread","Bakery",40,3.50
+232,2,"Sourdough Bread","Bakery",35,3.75
+233,3,"Sourdough Bread","Bakery",45,3.25
+234,1,"Dijon Mustard","Condiments",55,2.75
+235,2,"Dijon Mustard","Condiments",50,3.00
+236,3,"Dijon Mustard","Condiments",45,2.50
+237,4,"Mussels","Seafood",40,8.50
+238,2,"Mussels","Seafood",35,8.75
+239,4,"French Fries","Frozen",85,3.25
+240,2,"French Fries","Frozen",80,3.50
+241,4,"White Wine","Beverages",45,9.00
+242,2,"White Wine","Beverages",40,9.50
+243,4,"Celery","Produce",65,1.75
+244,2,"Celery","Produce",60,2.00
+245,4,"Onions","Produce",90,1.25
+246,2,"Onions","Produce",85,1.50
+247,4,"Parsley","Produce",50,1.00
+248,2,"Parsley","Produce",45,1.25
+249,4,"Butter","Dairy & Eggs",70,4.25
+250,2,"Butter","Dairy & Eggs",65,4.50
+251,1,"Chicken","Meat",85,6.50
+252,2,"Chicken","Meat",80,6.75
+253,4,"Chicken","Meat",90,6.25
+254,5,"Chicken","Meat",75,6.90
+255,1,"Carrots","Produce",120,1.50
+256,2,"Carrots","Produce",110,1.75
+257,4,"Carrots","Produce",100,1.60
+258,5,"Carrots","Produce",115,1.45
+259,1,"Parsnips","Produce",70,2.25
+260,2,"Parsnips","Produce",65,2.50
+261,4,"Parsnips","Produce",60,2.35
+262,5,"Parsnips","Produce",75,2.20
+263,1,"Heavy Cream","Dairy & Eggs",55,3.75
+264,2,"Heavy Cream","Dairy & Eggs",50,4.00
+265,4,"Heavy Cream","Dairy & Eggs",45,3.90
+266,5,"Heavy Cream","Dairy & Eggs",60,3.65
+267,1,"Egg Yolks","Dairy & Eggs",40,2.50
+268,2,"Egg Yolks","Dairy & Eggs",35,2.75
+269,4,"Egg Yolks","Dairy & Eggs",45,2.35
+270,5,"Egg Yolks","Dairy & Eggs",30,2.60
+271,1,"Fresh Herbs Mix","Produce",30,3.25
+272,2,"Fresh Herbs Mix","Produce",25,3.50
+273,4,"Fresh Herbs Mix","Produce",35,3.15
+274,5,"Fresh Herbs Mix","Produce",40,3.00
+275,1,"Flour","Baking",150,2.25
+276,2,"Flour","Baking",180,2.10
+277,3,"Flour","Baking",200,2.00
+278,4,"Flour","Baking",165,2.15
+279,5,"Flour","Baking",175,2.20
+280,1,"Yeast","Baking",80,1.75
+281,2,"Yeast","Baking",95,1.65
+282,3,"Yeast","Baking",85,1.70
+283,4,"Yeast","Baking",90,1.80
+284,5,"Yeast","Baking",75,1.85
+285,1,"Pearl Sugar","Baking",60,3.50
+286,2,"Pearl Sugar","Baking",55,3.75
+287,3,"Pearl Sugar","Baking",65,3.25
+288,4,"Pearl Sugar","Baking",50,3.60
+289,5,"Pearl Sugar","Baking",70,3.40
+290,1,"Eggs","Dairy & Eggs",120,3.00
+291,2,"Eggs","Dairy & Eggs",100,3.25
+292,3,"Eggs","Dairy & Eggs",110,2.90
+293,4,"Eggs","Dairy & Eggs",105,3.15
+294,5,"Eggs","Dairy & Eggs",115,3.10
+295,1,"Butter","Dairy & Eggs",90,4.25
+296,2,"Butter","Dairy & Eggs",85,4.50
+297,3,"Butter","Dairy & Eggs",95,4.00
+298,4,"Butter","Dairy & Eggs",80,4.35
+299,5,"Butter","Dairy & Eggs",100,4.15
+300,1,"Milk","Dairy & Eggs",150,1.95
+301,2,"Milk","Dairy & Eggs",140,2.10
+302,3,"Milk","Dairy & Eggs",160,1.85
+303,4,"Milk","Dairy & Eggs",145,2.00
+304,5,"Milk","Dairy & Eggs",155,1.90
+305,1,"Potatoes","Produce",180,1.20
+306,1,"Leeks","Produce",90,2.30
+307,1,"Brussels Sprouts","Produce",85,2.75
+308,1,"Nutmeg","Spices",50,3.25
+309,2,"Leeks","Produce",85,2.40
+310,3,"Brussels Sprouts","Produce",80,2.80
+311,4,"Potatoes","Produce",175,1.25
+312,4,"Leeks","Produce",95,2.25
+313,5,"Brussels Sprouts","Produce",90,2.70
+314,5,"Nutmeg","Spices",45,3.40
+315,3,"Potatoes","Produce",170,1.15
+316,3,"Vegetable Oil","Oils & Fats",85,4.25
+317,3,"Salt","Spices",120,1.00
+318,1,"Salt","Spices",100,1.10
+319,4,"Vegetable Oil","Oils & Fats",90,4.35
+320,5,"Salt","Spices",110,0.95
+321,1,"Bread Crumbs","Baking",100,1.80
+322,2,"Bread Crumbs","Baking",95,1.75
+323,3,"Bread Crumbs","Baking",90,1.85
+324,1,"Onions","Produce",200,0.90
+325,2,"Onions","Produce",180,0.85
+326,3,"Onions","Produce",190,0.95
+327,4,"Onions","Produce",185,0.90
+328,5,"Onions","Produce",195,0.85
+329,1,"Sirop de Liège","Pantry",50,4.50
+330,2,"Sirop de Liège","Pantry",45,4.75
+331,3,"Sirop de Liège","Pantry",55,4.25
+332,4,"Pork","Meat",75,6.50
+333,4,"Bread Crumbs","Baking",85,1.90
+334,4,"Sirop de Liège","Pantry",40,4.80
+335,5,"Pork","Meat",80,6.25
+336,5,"Bread Crumbs","Baking",95,1.80
+337,5,"Sirop de Liège","Pantry",45,4.60
+338,1,"Beef","Meat",85,8.50
+339,1,"Dark Belgian Beer","Beverages",60,3.75
+340,1,"Bread","Bakery",120,2.25
+341,1,"Mustard","Condiments",70,2.50
