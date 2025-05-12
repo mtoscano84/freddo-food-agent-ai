@@ -76,7 +76,12 @@ gcloud compute addresses create $RANGE_NAME \
     --network=$VPC_NAME
 ```
 
-6. Create a private connection:
+6. Ensure you have your Application Authentication Default (ADC) available for you project
+```
+gcloud auth application-default login
+```
+
+7. Create a private connection:
 ```
 gcloud services vpc-peerings connect \
     --service=servicenetworking.googleapis.com \
