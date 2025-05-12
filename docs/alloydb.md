@@ -118,17 +118,25 @@ gcloud alloydb instances create $INSTANCE \
     --ssl-mode=ALLOW_UNENCRYPTED_AND_ENCRYPTED
 ```
 
-4. Get AlloyDB IP address:
+4- Enable the database flag password.complexity_enforce=on. It is a requirement to use Public IP
 ```
-export ALLOYDB_IP=$(gcloud alloydb instances describe $INSTANCE \
-    --cluster=$CLUSTER \
-    --region=$REGION \
-    --format 'value(ipAddress)')
+gcloud beta alloydb instances update $INSTANCE \
+   --database-flags password.enforce_complexity=on \
+   --region=$REGION  \
+   --cluster=$CLUSTER \
+   --project=$PROJECT_ID \
+   --update-mode=FORCE_APPLY
 ```
-5. Note the AlloyDB IP address for later use:
+Note: The operation takes around 3 minutes to complete
+
+5. Enable Public IP for the AlloyDB Instance
 ```
-echo $ALLOYDB_IP
+gcloud alloydb instances update $INSTANCE \
+    --cluster=$CLUSTER  \
+    --region=$REGION  \
+    --assign-inbound-public-ip=ASSIGN_IPV4
 ```
+Note: The operation takes around 3 minutes to complete
 
 ### Set up connection to AlloyDB
 For this demo environment, we will set up the connection from the local PC to AlloyDB using Public IP. For productions environment, we recommend to connect using the private IP and a proxy configuration.
@@ -137,7 +145,7 @@ For this demo environment, we will set up the connection from the local PC to Al
 
 Install AlloyDB Auth Proxy
 ```
-wget https://storage.googleapis.com/alloydb-auth-proxy/v1.7.1/alloydb-auth-proxy.linux.amd64 -O alloydb-auth-proxy
+wget https://storage.googleapis.com/alloydb-auth-proxy/v1.13.1/alloydb-auth-proxy.darwin.arm64 -O alloydb-auth-proxy
 chmod +x alloydb-auth-proxy
 ```
 Note: Download the right software for your local machine. Check out the distributions available in https://cloud.google.com/alloydb/docs/auth-proxy/connect#install
@@ -150,7 +158,7 @@ export INSTANCE=my-alloydb-instance
 export REGION=us-central1
 export PROJECT_ID=freddo-food-agent-ai
 ./alloydb-auth-proxy \
-  /projects/$PROJECT_ID/locations/$REGION/clusters/$CLUSTER/instances/$INSTANCE
+  /projects/$PROJECT_ID/locations/$REGION/clusters/$CLUSTER/instances/$INSTANCE --public-ip
 ```
 You will need to allow this command to run while you are connecting to AlloyDB.
 
@@ -165,108 +173,6 @@ CREATE DATABASE recipe_store;
 ```
 
 5. Exit from psql:
-```
-exit
-```
-
-3. Disable the following Organization Policies using the console:
-
-Set **compute.vmExternalIpAcces** to **Allow**
-
-![Disable Org Policy compute.vmExternalIpAcces](../images/disable_orgpolicy_vmExternalIPAccess.png)
-
-Set **constraints/compute.requireShieldedVm** to **Not Enforced**
-
-![Disable Org Policy compute.requireShieldedVM](../images/disable_orgpolicy_requireShieldedVm.png)
-
-3. Assign the necessary roles to the default Compute Engine Service Account:
-
-Get your project number to build the default service account name in the format "$PROJECT_NUM-compute@developer.gserviceaccount.com"
-```
-gcloud projects describe $PROJECT_ID --format="value(projectNumber)"
-```
-
-```
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member='serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com' \
-    --role='roles/alloydb.client'
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-     --member='serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com' \
-     --role='roles/serviceusage.serviceUsageConsumer'
-
-```  
-
-4. Create a Compute Engine VM:
-```
-gcloud compute instances create $VM_INSTANCE \
-    --project=$PROJECT_ID \
-    --zone=$ZONE \
-    --machine-type=e2-medium \
-    --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=$SUBNET_NAME \
-    --maintenance-policy=MIGRATE \
-    --provisioning-model=STANDARD \
-    --service-account=$PROJECT_NUM-compute@developer.gserviceaccount.com \
-    --scopes=https://www.googleapis.com/auth/cloud-platform \
-    --create-disk=auto-delete=yes,boot=yes,device-name=$VM_INSTANCE,image-family=ubuntu-2004-lts,image-project=ubuntu-os-cloud,mode=rw,size=10,type=projects/$PROJECT_ID/zones/$ZONE/diskTypes/pd-balanced \
-    --no-shielded-secure-boot \
-    --shielded-vtpm \
-    --shielded-integrity-monitoring \
-    --labels=goog-ec-src=vm_add-gcloud \
-    --reservation-affinity=any
-```
-5. Open a new terminal, connect to the VM Instance and install AlloyDB Auth Proxy:
-
-Connect to the VM Instance:
-```
-export PROJECT_ID=genai-fashionmatch
-export ZONE=us-central1-a
-export VM_INSTANCE=alloydb-proxy-vm
-gcloud compute ssh --project=$PROJECT_ID --zone=$ZONE $VM_INSTANCE
-```
-Install AlloyDB Auth Proxy
-```
-wget https://storage.googleapis.com/alloydb-auth-proxy/v1.7.1/alloydb-auth-proxy.linux.amd64 -O alloydb-auth-proxy
-chmod +x alloydb-auth-proxy
-```
-6. Run the AlloyDB Auth Proxy, having it listen on its default address of 127.0.0.1:
-```
-export CLUSTER=my-alloydb-cluster
-export INSTANCE=my-alloydb-instance
-export REGION=us-central1
-export PROJECT_ID=genai-fashionmatch
-./alloydb-auth-proxy \
-  /projects/$PROJECT_ID/locations/$REGION/clusters/$CLUSTER/instances/$INSTANCE
-```
-You will need to allow this command to run while you are connecting to AlloyDB. You may wish to open a new terminal to connect with.
-
-7. Open a new terminal and set up port forwarding between your external client and the intermediary VM using SSH through IAP. This will listen to 127.0.0.1:5432 and forward through the GCE VM to your AlloyDB instance:
-```
-export ZONE=us-central1-a
-export VM_INSTANCE=alloydb-proxy-vm
-gcloud compute ssh $VM_INSTANCE \
-       --tunnel-through-iap \
-       --zone=$ZONE \
-       --ssh-flag="-L 5432:localhost:5432"
-```
-You will need to allow this command to run while you are connecting to AlloyDB. You may wish to open a new terminal to connect with.
-
-8. Verify you can connect to your instance with the psql tool. Enter password for AlloyDB ($DB_PASS environment variable set above) when prompted:
-```
-psql -h 127.0.0.1 -U postgres
-```
-9. While connected using psql, create a database and switch to it:
-```
-CREATE DATABASE fashionstore;
-\c fashionstore
-```
-
-10. Install pgvector extension in the database:
-```
-CREATE EXTENSION vector;
-```
-
-11. Exit from psql:
 ```
 exit
 ```
