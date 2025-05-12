@@ -64,17 +64,18 @@ There 3 key components in this architecture:
 Deploying this demo consists of 3 steps:
 
 1. Creating your database and initializing it with data
-2. Deploying the Recommendation Service -- deploying your recommendation service and connecting it to your database
-3. Running the Recommendation Service
+2. Deploying MCP ToolBox service on CloudRun
+3. Deploying the Backend and the Frontend services on CloudRun
+4. Running the Freddon Agent AI
 
 ### Before you begin
 Clone this repo to your local machine:
 ```
-git clone https://github.com/mtoscano84/genai-fashionmatch.git
+git clone https://github.com/mtoscano84/freddo-food-agent-ai.git
 ```
 
 ### Setting up your Database
-The recommendation service uses a database to store the image embeddings and perform similarity searches to generate recommendations based on the catalog.
+The Agent AI Assistant uses a database to store the data model and the embeddings to resolve the user queries and navigate through the use journey
 
 Follow these instructions to set up and configure the database
 
