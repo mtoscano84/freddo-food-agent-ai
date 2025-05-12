@@ -71,10 +71,6 @@ Note: Execute from the location where the tools.yaml exists
 
 7. Deploy MCP Toolbox to Cloud Run:
 ```
-gcloud run services add-iam-policy-binding toolbox \
-    --member="allUsers" \
-    --role="roles/run.invoker"
-
 export IMAGE=us-central1-docker.pkg.dev/database-toolbox/toolbox/toolbox:latest
 gcloud run deploy toolbox \
     --image $IMAGE \
@@ -85,6 +81,11 @@ gcloud run deploy toolbox \
     --network my-vpc \
     --subnet my-subnet \
     --allow-unauthenticated 
+```
+```
+gcloud run services add-iam-policy-binding toolbox \
+    --member="allUsers" \
+    --role="roles/run.invoker"
 ```
 
 Output:
