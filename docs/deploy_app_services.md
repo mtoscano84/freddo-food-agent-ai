@@ -55,7 +55,7 @@ gcloud projects add-iam-policy-binding $(gcloud config get-value project) \
 
 **Note**: Use the default compute service account
 
-4. If you are under a domain restriction organization policy [restricting](https://cloud.google.com/run/docs/authenticating/public#domain-restricted-sharing) unauthenticated invocations for your project (e.g. Argolis), you will need to temporary disable de Org Policy **iam.allowedPolicyMemberDomains**
+4. If you are under a domain restriction organization policy [restricting](https://cloud.google.com/run/docs/authenticating/public#domain-restricted-sharing) unauthenticated invocations for your project (e.g. Argolis), you will need to disable de Org Policy **iam.allowedPolicyMemberDomains**
 
 ## Deploy the backend service to CloudRun
 1. Go to freddo-food-agent-ai/src/backend and edit the file freddo_agent.py to point the MCP ToolBox Cloud Run Service
