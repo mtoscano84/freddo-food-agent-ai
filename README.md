@@ -75,14 +75,14 @@ git clone https://github.com/mtoscano84/freddo-food-agent-ai.git
 ```
 
 ### Setting up your Database
-Freddo Agent AI Assistant uses a database to store the data model and the embeddings to resolve the user queries and navigate through the use journey
+Freddo Agent AI Assistant leverages AlloyDB to persist the data, provides context and resolve user queries.
 
 Follow these instructions to set up and configure the database
 
 [Setting up your Database](docs/alloydb.md)
 
 ### Deploying MCP ToolBox
-MCP ToolBox allows our agent to connect to database using the different tools
+MCP ToolBox exposes a set of specialized functionalities, or "tools," that allow the agent to perform actions and access data.
 
 Follow these instructions to deploy MCP ToolBox along with the Tools in CloudRun
 
