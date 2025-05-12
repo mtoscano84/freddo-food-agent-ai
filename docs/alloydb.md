@@ -131,15 +131,45 @@ echo $ALLOYDB_IP
 ```
 
 ### Set up connection to AlloyDB
-AlloyDB supports network connectivity through private, internal IP addresses only. For this section, we will create a Google Cloud Engine VM in the same VPC as the AlloyDB cluster. We can use this VM to connect to our AlloyDB cluster using Private IP.
+For this demo environment, we will set up the connection from the local PC to AlloyDB using Public IP. For productions environment, we recommend to connect using the private IP and a proxy configuration.
 
-1. Set environment variables:
+1. Open a new terminal, install AlloyDB Auth Proxy:
+
+Install AlloyDB Auth Proxy
 ```
-export ZONE=us-central1-a
-export VM_INSTANCE=alloydb-proxy-vm
+wget https://storage.googleapis.com/alloydb-auth-proxy/v1.7.1/alloydb-auth-proxy.linux.amd64 -O alloydb-auth-proxy
+chmod +x alloydb-auth-proxy
+```
+Note: Download the right software for your local machine. Check out the distributions available in https://cloud.google.com/alloydb/docs/auth-proxy/connect#install
+
+2. Run the AlloyDB Auth Proxy, having it listen on its default address of 127.0.0.1:
+
+```
+export CLUSTER=my-alloydb-cluster
+export INSTANCE=my-alloydb-instance
+export REGION=us-central1
+export PROJECT_ID=freddo-food-agent-ai
+./alloydb-auth-proxy \
+  /projects/$PROJECT_ID/locations/$REGION/clusters/$CLUSTER/instances/$INSTANCE
+```
+You will need to allow this command to run while you are connecting to AlloyDB.
+
+3. Verify you can connect to your instance with the psql tool. Enter password for AlloyDB ($DB_PASS environment variable set above) when prompted:
+```
+psql -h 127.0.0.1 -U postgres
+```
+4. While connected using psql, create a database and switch to it:
+```
+CREATE DATABASE recipe_store;
+\c recipe_store
 ```
 
-2. Disable the following Organization Policies using the console:
+5. Exit from psql:
+```
+exit
+```
+
+3. Disable the following Organization Policies using the console:
 
 Set **compute.vmExternalIpAcces** to **Allow**
 
