@@ -81,7 +81,14 @@ Follow these instructions to set up and configure the database
 
 [Setting up your Database](docs/alloydb.md)
 
-### Deploying the Recommendation Service
+### Deploying MCP ToolBox
+MCP ToolBox allows our agent to connect to database using the different tools
+
+Follow these instructions to deploy MCP ToolBox along with the Tools in CloudRun
+
+[Deploying MCP ToolBox](docs/toolbox.md)
+
+### Deploying the Agent
 The Recommendation service is based on two Cloud Run services:
 
 1. **Frontend**: Manages the user interface and orchestrates the calls needed to process requests and display the recommended items.
@@ -89,7 +96,7 @@ The Recommendation service is based on two Cloud Run services:
 
 To deploy the recommendation service, follow these instructions:
 
-[Deploy the Recommendation Service](docs/deploy_recommendation_service.md)
+[Deploy the Recommendation Service](docs/deploy_app_services.md)
 
 ### Running the Recommendation Service
 Start uploading a picture to get recommendations !
