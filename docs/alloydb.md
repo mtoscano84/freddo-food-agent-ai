@@ -179,11 +179,33 @@ exit
 
 ## Initialize data in AlloyDB
 
-1. Set environment variables:
+Before we can load the data in AlloyDB, we need to setup the integration between AlloyDB and Vertex AI
+
+1. Get the Project Number associated with the Project ID
 ```
-export PROJECT_ID=genai-fashionmatch
-export REGION=us-central1
-export BUCKET_NAME=catalog-repo-$PROJECT_NUM
+gcloud projects describe $PROJECT_ID --format="value(projectNumber)"
+```
+
+2. Grant Vertex AI permission to the AlloyDB Service Agent
+```
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+--member="serviceAccount:service-PROJECT_NUMBER@gcp-sa-alloydb.iam.gserviceaccount.com" \
+--role="roles/aiplatform.user"
+```
+Note: The permission might need until 1 minute to get applied
+
+3- Connect to the AlloyDB Instance to validate the integration
+```
+psql -h 127.0.0.1 -U postgres -d recipe_store
+SELECT array_dims(embedding('text-embedding-005', 'AlloyDB AI')::real[]);
+```
+
+4. Go to freddo-food-agent-ai/src/backend/ and edit the db_config_params with your connection string
+```
+host=127.0.0.1
+database=recipe_store
+user=postgres
+password=MySecure123welcome123!
 ```
 
 2. Create a GCS Bucket
