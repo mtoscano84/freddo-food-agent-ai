@@ -26,8 +26,9 @@ Specifically, the demo showcases the following:
 - [Deploying](#deploying)
     - [Before you begin](#before-you-begin)
     - [Setting up your Database](#setting-up-your-database)
-    - [Deploying the Recommendation Service](#deploying-the-recomendation-service)
-    - [Running the Recommendation Service](#running-the-recommendation-service)
+    - [Deploying MCP ToolBox](#deploying-mcp-toolbox)
+    - [Deploying Freddo Agent AI](#deploying-freddo-agent-ai)
+    - [Running Freddo Agent AI](#running-freddo-agent-ai)
     - [Clean up Resources](#clean-up-resources)
 
 <!-- /TOC -->
@@ -64,9 +65,8 @@ There 3 key components in this architecture:
 Deploying this demo consists of 3 steps:
 
 1. Creating your database and initializing it with data
-2. Deploying MCP ToolBox service on CloudRun
-3. Deploying the Backend and the Frontend services on CloudRun
-4. Running the Freddon Agent AI
+2. Deploying MCP ToolBox service to CloudRun
+3. Deploying Freddo Agent AI using a Backend and the Frontend services to CloudRun
 
 ### Before you begin
 Clone this repo to your local machine:
@@ -75,7 +75,7 @@ git clone https://github.com/mtoscano84/freddo-food-agent-ai.git
 ```
 
 ### Setting up your Database
-The Agent AI Assistant uses a database to store the data model and the embeddings to resolve the user queries and navigate through the use journey
+Freddo Agent AI Assistant uses a database to store the data model and the embeddings to resolve the user queries and navigate through the use journey
 
 Follow these instructions to set up and configure the database
 
@@ -88,17 +88,17 @@ Follow these instructions to deploy MCP ToolBox along with the Tools in CloudRun
 
 [Deploying MCP ToolBox](docs/toolbox.md)
 
-### Deploying the Agent
-The Recommendation service is based on two Cloud Run services:
+### Deploying Freddo Agent AI
+Freddo Agent AI is composed of two Cloud Run Services:
 
-1. **Frontend**: Manages the user interface and orchestrates the calls needed to process requests and display the recommended items.
-2. **Backend**: Orchestrates the generation of the embedding from the image provided by the user, its insertion into the database, and the similarity search to obtain the catalog items.
+1. **Frontend**: Provides an user interface to interact with the agent and the backend service.
+2. **Backend**: This service hosts the core AI agent. It orchestrates user interactions with the different components to provide the answers.
 
-To deploy the recommendation service, follow these instructions:
+To deploy Freddo Agent AI, follow these instructions:
 
-[Deploy the Recommendation Service](docs/deploy_app_services.md)
+[Deploy Freddo Agent AI](docs/deploy_app_services.md)
 
-### Running the Recommendation Service
+### Running Freddo Agent AI
 Start uploading a picture to get recommendations !
 
 ![GenAI FashionStore](images/GenAIFashionStore_DemoDark.gif)
