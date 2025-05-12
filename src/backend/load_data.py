@@ -11,13 +11,10 @@ import os
 import vertexai
 from vertexai.preview.vision_models import ImageGenerationModel
 
-GOOGLE_CLOUD_PROJECT="mtoscano-dev-sandbox"
-GOOGLE_CLOUD_LOCATION="us-central1"
-GOOGLE_GENAI_USE_VERTEXAI="True"
-
 #client = genai.Client("True", "freddo-project", "us-central1")
 #client = genai.Client(project="freddo-project", location="us-central1")
-client = genai.Client(http_options=HttpOptions(api_version="v1"))
+#client = genai.Client(http_options=HttpOptions(api_version="v1"))
+client = genai.Client(vertexai=True, project="freddo-food-agent-ai", location="us-central1")
 
 def load_db_config():
     """Load database configuration from db_config.params file"""
