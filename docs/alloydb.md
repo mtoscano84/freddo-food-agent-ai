@@ -127,7 +127,7 @@ gcloud beta alloydb instances update $INSTANCE \
    --project=$PROJECT_ID \
    --update-mode=FORCE_APPLY
 ```
-Note: The operation takes around 3 minutes to complete
+**Note**: The operation takes around 3 minutes to complete
 
 5. Enable Public IP for the AlloyDB Instance
 ```
@@ -136,7 +136,7 @@ gcloud alloydb instances update $INSTANCE \
     --region=$REGION  \
     --assign-inbound-public-ip=ASSIGN_IPV4
 ```
-Note: The operation takes around 3 minutes to complete
+**Note**: The operation takes around 3 minutes to complete
 
 ### Set up connection to AlloyDB
 For this demo environment, we will set up the connection from the local PC to AlloyDB using Public IP. For productions environment, we recommend to connect using the private IP and a proxy configuration.
@@ -148,7 +148,7 @@ Install AlloyDB Auth Proxy
 wget https://storage.googleapis.com/alloydb-auth-proxy/v1.13.1/alloydb-auth-proxy.darwin.arm64 -O alloydb-auth-proxy
 chmod +x alloydb-auth-proxy
 ```
-Note: Download the right software for your local machine. Check out the distributions available in https://cloud.google.com/alloydb/docs/auth-proxy/connect#install
+**Note**: Download the right software for your local machine. Check out the distributions available in https://cloud.google.com/alloydb/docs/auth-proxy/connect#install
 
 2. Run the AlloyDB Auth Proxy, having it listen on its default address of 127.0.0.1:
 
@@ -192,7 +192,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member="serviceAccount:service-PROJECT_NUMBER@gcp-sa-alloydb.iam.gserviceaccount.com" \
 --role="roles/aiplatform.user"
 ```
-Note: The permission might need until 1 minute to get applied
+**Note**: The permission might need until 1 minute to get applied
 
 3- Connect to the AlloyDB Instance to validate the integration
 ```
@@ -218,7 +218,7 @@ client = genai.Client(vertexai=True, project="freddo-food-agent-ai", location="u
 cd freddo-food-agent-ai/src/backend
 source load_db.sh
 ```
-Note: Validate that AlloyDB Auth Proxy is running in a separate window
+**Note**: Validate that AlloyDB Auth Proxy is running in a separate window
 
 Output:
 ```
