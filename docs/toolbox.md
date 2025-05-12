@@ -49,7 +49,7 @@ sources:
     user: postgres
     password: welcome1
 ```
-Note: You can use the following command to get the information from the instance
+**Note**: You can use the following command to get the information from the instance
 
 ```
 export CLUSTER=my-alloydb-cluster
@@ -67,7 +67,7 @@ gcloud alloydb instances describe $INSTANCE \
 gcloud secrets create tools --data-file=tools.yaml
 ```
 
-Note: Execute from the location where the tools.yaml exists
+**Note**: Execute from the location where the tools.yaml exists
 
 7. Deploy MCP Toolbox to Cloud Run:
 ```
