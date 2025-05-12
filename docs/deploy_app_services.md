@@ -26,15 +26,15 @@ gcloud projects describe $PROJECT_ID --format="value(projectNumber)"
 - Grant the permissions:
 ```
 # Grant Cloud Run service account access to GCS
-gcloud projects add-iam-policy-binding mtoscano-dev-sandbox \
+gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:754204885755-compute@developer.gserviceaccount.com" \
     --role="roles/storage.admin"
 
-gcloud projects add-iam-policy-binding mtoscano-dev-sandbox \
+gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:754204885755-compute@developer.gserviceaccount.com" \
     --role="roles/run.admin"
 
-gcloud projects add-iam-policy-binding mtoscano-dev-sandbox \
+gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:754204885755-compute@developer.gserviceaccount.com" \
     --role="roles/artifactregistry.writer"
 
